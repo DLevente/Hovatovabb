@@ -1,0 +1,34 @@
+<div class="results-list">
+  <app-journey-card *ngFor="let j of journeys" [journey]="j" [kedvId]="kedvId" (info)="onInfo(j)"
+    (addToPlan)="openAddModal($event)">
+  </app-journey-card>
+</div>
+
+<!-- modal -->
+<div *ngIf="showAddModal" class="overlay" (click)="closeAddModal()"></div>
+
+<div *ngIf="showAddModal" class="modal-container">
+  <div class="modal-header">
+    <h3>Járat hozzáadása tervhez</h3>
+    <button class="close-btn" (click)="closeAddModal()">✕</button>
+  </div>
+
+  <div class="modal-body">
+    <div class="muted">Válaszd ki, melyik tervhez szeretnéd hozzáadni</div>
+
+    <input class="plan-name" [(ngModel)]="newPlanName" placeholder="Terv neve..." />
+    <button class="new-plan-btn" (click)="createPlan()">+ Új terv</button>
+
+    <select [(ngModel)]="selectedPlanId" name="planSelect">
+      <option [ngValue]="null">Válassz tervet…</option>
+      <option *ngFor="let p of plans" [ngValue]="p.id">
+        {{ p.nev || ('Terv #' + p.id) }}
+      </option>
+    </select>
+  </div>
+
+  <div class="modal-actions">
+    <button class="btn-cancel" (click)="closeAddModal()">Mégse</button>
+    <button class="btn-primary" (click)="confirmAdd()" [disabled]="!selectedPlanId">Hozzáadás</button>
+  </div>
+</div>

@@ -1,0 +1,288 @@
+.journey-card {
+  background: #0f172a;
+  border: 1px solid #334155;
+  padding: 20px;
+  border-radius: 16px;
+  color: #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  transition: 0.2s;
+}
+
+.journey-card:hover {
+  border: 1px solid #1e40af;
+  transition: 0.2s;
+}
+
+.chip-row {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 12px;
+}
+
+.chip {
+  display: flex;
+  align-items: center;
+  padding: 6px 8px 4px 8px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  gap: 3px;
+}
+
+.transport {
+  color: #ffffffae;
+}
+
+.agency {
+  background: #334155;
+  color: #cbd5e1;
+  padding: 4px 10px !important;
+}
+
+.chip-icon {
+  width: 16px;
+  height: 16px;
+  margin-top: -3px;
+}
+
+/* Add to plan button */
+.add-btn {
+  margin-left: auto;
+  background: #f0f8ff;
+  border: 1px solid #93c5fd;
+  border-radius: 12px;
+  padding: 6px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  color: #1d4ed8;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: 0.2s;
+}
+
+.add-btn:hover {
+  margin-left: auto;
+  background: #1d4ed8;
+  border: 1px solid #93c5fd;
+  border-radius: 12px;
+  padding: 6px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  color: #f0f8ff;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: 0.2s;
+}
+
+.plus {
+  font-size: 18px;
+  line-height: 0;
+}
+
+/* Route row */
+.route-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Blocks */
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+label {
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+.time {
+  font-size: 26px;
+  font-weight: 700;
+  color: white;
+}
+
+.station {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 15px;
+  color: #cbd5e1;
+}
+
+.station-right {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 15px;
+  color: #cbd5e1;
+  justify-content: right;
+}
+
+.platform {
+  font-size: 14px;
+  color: #cbd5e1;
+  background-color: rgb(30, 64, 175);
+  text-align: center;
+  width: 35px;
+  border-radius: 100px;
+  padding: 2px;
+}
+
+.pin {
+  width: 14px;
+  height: 14px;
+}
+
+/* Duration center block */
+.duration {
+  text-align: center;
+  font-size: 15px;
+  color: #94a3b8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  min-width: 80px;
+}
+
+.clock {
+  width: 18px;
+  opacity: 0.7;
+}
+
+/* Right block */
+.right .station {
+  justify-content: flex-start;
+}
+
+.transfers-indicator {
+  color: #93c5fd;
+  background: transparent;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  justify-content: center;
+}
+
+@media (max-width: 767.98px) {
+  .transfers-indicator {
+    justify-content: left;
+  }
+}
+
+.transfers-indicator .caret {
+  margin-left: 6px;
+  font-size: 12px;
+}
+
+/* segments list */
+.segments-list {
+  background: #0b1220;
+  border: 1px solid #26303b;
+  padding: 12px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.segment {
+  border-bottom: 1px dashed #94a3b8;
+  padding-bottom: 8px;
+}
+
+.segment:last-child {
+  border-bottom: none;
+}
+
+.seg-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.seg-index {
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+.seg-mode {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.seg-body {
+  margin-top: 8px;
+  color: #cbd5e1;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.info-btn{
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: #111b2c;
+  border: 1px solid #22324e;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.info-btn:hover{
+  filter: brightness(1.08);
+}
+
+.info-icon {
+  width: 22px;
+  opacity: .8;
+}
+
+.delay-text {
+  margin-top: 4px;
+  font-size: 12px;
+  color: #f87171;
+  /* ugyanaz a piros, mint az érkezési időnél */
+  font-weight: 600;
+}
+
+.segment-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 0;
+}
+
+.fare-row {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.duration-row {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+}

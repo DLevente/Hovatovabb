@@ -1,0 +1,104 @@
+<div class="app-container">
+  <app-login *ngIf="showLogin" (close)="showLogin = false"></app-login>
+  <app-register *ngIf="showRegister" (close)="showRegister = false"></app-register>
+  <app-user *ngIf="showUser" (close)="showUser = false"></app-user>
+
+  <app-alert *ngIf="alertService.message$ | async as msg" [message]="msg">
+  </app-alert>
+
+  <!-- HEADER -->
+  <header class="header">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand d-flex gap-3 align-items-center">
+          <img src="img/hovatovabb-512.png" alt="" width="50" class="d-inline-block align-text-center">
+          <div>
+            <h1 class="app-title">HovaTovább</h1>
+            <p class="app-subtitle">Közösségi menetrendtervező</p>
+          </div>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li *ngIf="!(user$ | async)" (click)="showLogin = true" class="nav-item">
+              <a class="nav-link d-flex gap-2 align-items-center">
+                <img src="icons/login.svg" class="tab-icon">
+                Bejelentkezés
+              </a>
+            </li>
+            <li *ngIf="!(user$ | async)" (click)="showRegister = true" class="nav-item">
+              <a class="nav-link d-flex gap-2 align-items-center">
+                <img src="icons/register.svg" class="tab-icon">
+                Regisztráció
+              </a>
+            </li>
+            <li *ngIf="(user$ | async)" (click)="showUser = true" class="nav-item">
+              <a class="nav-link d-flex gap-2 align-items-center">
+                <img src="icons/user.svg" class="tab-icon">
+                <span *ngIf="(user$ | async) as res">
+                  {{ res?.user?.felhasznalonev }}
+                </span>
+              </a>
+            </li>
+            <li *ngIf="(user$ | async)" (click)="logoutBtn()" class="nav-item">
+              <a class="nav-link d-flex gap-2 align-items-center">
+                <img src="icons/logout.svg" class="tab-icon">
+                Kijelentkezés
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- JOGI INFORMÁCIÓK VIEW -->
+  <div *ngIf="isLegal; else normalApp" class="main">
+    <router-outlet></router-outlet>
+  </div>
+
+  <!-- NORMAL APP VIEW -->
+  <ng-template #normalApp>
+    <!-- MAIN CONTENT -->
+    <div class="main">
+
+      <!-- TABS -->
+      <div class="tabs">
+        <button class="tab-button" [class.active]="activeTab === 'search'" (click)="activeTab = 'search'">
+          <img src="icons/train.svg" class="tab-icon">
+          Keresés
+        </button>
+
+        <button class="tab-button" [class.active]="activeTab === 'plan' || activeTab === 'details'"
+          (click)="activeTab = 'plan'">
+          <img src="icons/map.svg" class="tab-icon">
+          Terveim
+        </button>
+      </div>
+
+      <!-- TAB CONTENT -->
+      <div class="content">
+        <div [hidden]="activeTab !== 'search'">
+          <app-search
+            kedvId="{{ kedvId }}"
+          ></app-search>
+        </div>
+
+        <div [hidden]="activeTab !== 'plan'">
+          <app-plan (viewPlan)="openPlan($event)"></app-plan>
+        </div>
+
+        <div [hidden]="activeTab !== 'details'">
+          <app-plan-details [plan]="selectedPlan" (back)="backToPlans()">
+          </app-plan-details>
+        </div>
+      </div>
+
+    </div>
+  </ng-template>
+</div>
+
+<app-cookie-consent></app-cookie-consent>

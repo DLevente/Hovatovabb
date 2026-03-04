@@ -1,0 +1,71 @@
+.legal-page{
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.header h2{
+  color: white;
+  margin: 0;
+}
+
+.muted{
+  color: rgba(255,255,255,0.70);
+  margin: 6px 0 0 0;
+}
+
+.card{
+  background: #0f172a;
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 16px;
+  padding: 16px;
+}
+
+.card-title{
+  color: white;
+  font-weight: 800;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.section{
+  padding-top: 10px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  margin-top: 10px;
+}
+
+.section:first-of-type{
+  border-top: none;
+  padding-top: 0;
+  margin-top: 0;
+}
+
+.h{
+  color: rgba(255,255,255,0.90);
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.back-btn {
+  background: #2563eb;
+  border: none;
+  color: #fff;
+  padding: 10px 8px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.back-btn:hover {
+  background-color: #1e4fbb;
+  transition: 0.2s;
+}
+
+p{
+  color: rgba(255,255,255,0.78);
+  margin: 0;
+  line-height: 1.45;
+}

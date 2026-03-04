@@ -1,0 +1,113 @@
+<app-login *ngIf="showLogin" (close)="showLogin = false"></app-login>
+
+<div class="plan-page">
+  <div *ngIf="username !== ''; else elseBlock">
+    <div class="header">
+      <h5>Menetrendterveim</h5>
+      <div class="btn btn-primary" (click)="openCreate()">
+        <span class="plus">+</span> Új terv
+      </div>
+    </div>
+
+    <div *ngIf="loading" class="muted"><img src="img/loading.gif" width="24"></div>
+    <div *ngIf="error" class="error">{{ error }}</div>
+
+    <div *ngIf="!loading && plans.length === 0" class="empty-card">
+      <div class="title">Még nincs létrehozott terved</div>
+      <div class="muted">Hozz létre egy új tervet a fenti gombra kattintva</div>
+    </div>
+
+    <div class="plan-list" *ngIf="plans.length > 0">
+      <div class="plan-card" *ngFor="let p of plans">
+        <div class="plan-main">
+
+          <!-- 1) Terv név -->
+          <div class="plan-title">{{ p.nev || ('Terv #' + p.id) }}</div>
+
+          <!-- 2) első járat indulása -->
+          <div class="plan-line">
+            <img src="icons/calendar.svg" class="line-icon" alt="Naptár" />
+            <ng-container *ngIf="getFirstDeparture(p.id) as fd; else noDate">
+              <span>
+                {{ toDateSafe(fd) ? (toDateSafe(fd) | date:'yyyy.MM.dd. HH:mm') : fd }}
+              </span>
+            </ng-container>
+            <ng-template #noDate>
+              <span class="muted">Nincs járat</span>
+            </ng-template>
+          </div>
+
+          <!-- 3) járatok száma -->
+          <div class="plan-line">
+            <img src="icons/train.svg" class="line-icon" alt="Vonat" />
+            <span>{{ getCount(p.id) }} járat</span>
+          </div>
+
+        </div>
+
+        <div class="actions">
+          <button class="btn-outline" (click)="open(p)">
+            <div class="d-flex align-items-center gap-2">
+              <img src="icons/view.svg" class="line-icon" alt="Nézet" />
+              Megnyitás
+            </div>
+          </button>
+          <div class="btn btn-danger d-flex align-items-center" (click)="delete(p)">
+            <img src="icons/delete.svg" class="line-icon" alt="Törlés" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #elseBlock>
+    <div>
+      <div class="header">
+        <h5>Menetrendterveim</h5>
+      </div>
+
+      <div class="empty-card">
+        <div class="title">Tervek létrehozásához <u style="cursor: pointer;" (click)="showLogin = true">jelentkezz be!</u>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+  <!-- create modal -->
+  <div *ngIf="showCreateModal" class="overlay" (click)="closeCreate()"></div>
+  <div *ngIf="showCreateModal" class="modal-container">
+    <div class="modal-header">
+      <h3>Új terv létrehozása</h3>
+      <button class="close-btn" (click)="closeCreate()">✕</button>
+    </div>
+
+    <div class="modal-actions">
+      <div class="mb-3">
+        <input class="plan-name w-100" [(ngModel)]="planName" placeholder="Terv neve..." />
+      </div>
+      <div class="d-flex gap-2 justify-content-center">
+        <div class="btn btn-primary" (click)="createPlan()">Létrehozás</div>
+        <div class="btn btn-secondary" (click)="closeCreate()">Mégse</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- delete modal -->
+  <div *ngIf="deleteModalOpen" class="overlay" (click)="closeDeleteModal()"></div>
+
+  <div *ngIf="deleteModalOpen" class="modal-container">
+    <div class="modal-header">
+      <h3>Terv törlése</h3>
+      <button class="close-btn" (click)="closeDeleteModal()">✕</button>
+    </div>
+
+    <div class="modal-body">
+      Biztos törölni szeretnéd ezt a tervet?
+      <div class="plan-name">{{ planToDelete?.nev }}</div>
+    </div>
+
+    <div class="modal-actions d-flex gap-2 justify-content-center">
+      <div class="btn btn-secondary" (click)="closeDeleteModal()">Mégse</div>
+      <div class="btn btn-danger" (click)="confirmDelete()">Törlés</div>
+    </div>
+  </div>

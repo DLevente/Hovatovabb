@@ -1,0 +1,141 @@
+<div class="details-page">
+  <div class="row">
+    <div class="col-12 col-md-6 d-flex align-items-center justify-content-center justify-content-md-start gap-2">
+      <button class="back-btn" (click)="onBack()"><img src="icons/back.svg" alt="Vissza" width="16"></button>
+
+      <div class="title-wrap">
+        <div class="title">
+          <h5>{{ plan?.nev }}</h5>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 d-flex align-items-center justify-content-center justify-content-md-end gap-2">
+      <img src="icons/ticket.svg" class="ticket" />
+      <span style="font-weight: bold;">{{ displaySumFare() }}</span>
+      <span>&nbsp;|&nbsp;</span>
+      <img src="icons/clock.svg" class="clock" />
+      <span style="font-weight: bold;">{{ displaySumDuration() }}</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div *ngIf="loading" class="muted"><img src="img/loading.gif" width="24"></div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <div class="section-title">
+    Járatok ({{ routes.length }})
+  </div>
+
+  <div *ngIf="!loading && routes.length === 0" class="empty">
+    <h5 style="color:white;">Nincs járat a tervben.</h5>
+    <div class="muted">Új járatot a tervedhez a Keresés menüpont alatt tudsz hozzáadni.</div>
+  </div>
+
+  <div class="route-list" *ngIf="routes.length > 0">
+    <div class="route-card" *ngFor="let r of routes; let i = index" [style.borderColor]="cardBorder(r)"
+      [style.background]="cardBg(r)">
+      <!-- HEADER -->
+      <div class="card-header">
+        <div class="card-header-inner">
+          <div class="left-chips">
+            <div class="idx-outer">
+              <div class="chip idx">#{{ i + 1 }}</div>
+            </div>
+
+            <div class="chip transport" *ngIf="displayOwner(r)" [style.background]="ownerColor(r)">
+              <img class="chip-icon" [src]="getVehicleIcon(r)" />
+              <span class="domain">{{ displayLine(r) }}</span>
+            </div>
+
+            <div class="chip agency" *ngIf="displayOwner(r)">
+              {{ displayOwner(r) }}
+            </div>
+
+            <button class="btn-info" (click)="openInfo(r)" title="Részletek">
+              <img src="icons/info.svg" width="18" />
+            </button>
+
+            <div class="chip status ok" *ngIf="isDone(r)">
+              <img src="icons/checkmark.svg" width="18" />
+            </div>
+          </div>
+
+          <!-- jobb oldali gombok -->
+          <div class="actions">
+            <div class="btn btn-success" [ngClass]="statusBtnDisplay(r)" (click)="setStatus(r, 1)">
+              <img src="icons/checkmark.svg" width="18" />
+            </div>
+            <div class="btn btn-danger" (click)="askRemove(r)" title="Törlés">
+              <img src="icons/delete.svg" width="18" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BODY -->
+      <div class="row">
+        <div class="col-4 text-start">
+          <label>Indulás</label>
+          <div class="time">{{ formatHM(r.ind_ido) }}</div>
+          <div class="station">
+            <img src="icons/pin.svg" class="pin" />
+            <span [innerHTML]="formatStationHtml(r.ind_allomas)"></span>
+            <div class="platform d-none d-md-block" *ngIf="r?.bay">
+              {{ r.bay }}
+            </div>
+          </div>
+          <div class="platform d-block d-md-none" *ngIf="r?.bay">
+            {{ r.bay }}
+          </div>
+        </div>
+
+        <div class="col-4 text-center">
+          <div class="col-12">
+            <div class="fare justify-content-center">
+              <img src="icons/ticket.svg" class="ticket" />
+              <span>{{ fareText(r) }}</span>
+            </div>
+          </div>
+
+          <div class="dur-div">
+            <img src="icons/clock.svg" class="clock" />
+            <div class="dur">{{ durationText(r) }}</div>
+          </div>
+        </div>
+
+        <div class="col-4 text-end">
+          <label>Érkezés</label>
+          <div class="time">{{ formatHM(r.erk_ido) }}</div>
+          <div class="station justify-content-end">
+            <img src="icons/pin.svg" class="pin" />
+            <span [innerHTML]="formatStationHtml(r.erk_allomas)"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-journey-info *ngIf="showInfoModal" [journey]="infoJourney" [date]="infoDate" (close)="closeInfo()">
+</app-journey-info>
+
+<div class="modal-backdrop" *ngIf="confirmDeleteOpen">
+  <div class="confirm-modal">
+    <h3>Járat törlése</h3>
+
+    <p>
+      Biztosan törölni szeretnéd ezt a járatot a tervből?
+    </p>
+
+    <div class="modal-actions">
+      <div class="btn btn-secondary" (click)="cancelDelete()">
+        Mégse
+      </div>
+
+      <div class="btn btn-danger" (click)="confirmDelete()">
+        Törlés
+      </div>
+    </div>
+  </div>
+</div>

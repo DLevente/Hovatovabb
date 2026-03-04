@@ -1,0 +1,233 @@
+<div class="journey-card">
+
+  <!-- Header row: icons, domain (conditionally), transfers indicator, add button -->
+  <!-- Nagy képernyő: 1 row -->
+  <div class="row d-none d-md-flex align-items-center">
+    <!-- bal -->
+    <div class="col-md-4 chip-row">
+      <div class="chip transport" [style.background]="getTransportBackground()">
+        <ng-container *ngFor="let m of vehicleModes">
+          <img class="chip-icon" [src]="iconForMode(m)" />
+        </ng-container>
+
+        <span *ngIf="transfers === 0" class="domain-code">
+          {{ journey.nativeData[0].JourneyName || journey.nativeData[0].LocalDomainCode }}
+        </span>
+      </div>
+
+      <div class="chip agency" *ngIf="journey.nativeData[0]?.OwnerName && transfers === 0">
+        {{ journey.nativeData[0].OwnerName }}
+      </div>
+    </div>
+
+    <!-- középső -->
+    <div class="col-md-4 text-center">
+      <div *ngIf="transfers > 0; else noTransfers" class="transfers-indicator" (click)="toggleSegments()">
+        Átszállás: {{ transfers }}
+        <span class="caret">{{ showSegments ? '▴' : '▾' }}</span>
+      </div>
+      <ng-template #noTransfers>
+        <div class="transfers-indicator">
+          <img src="icons/ticket.svg" class="clock" />
+          <label *ngIf="calcFare() !== null; else noTicket">
+            {{ calcFare() }} Ft
+          </label>
+          <ng-template #noTicket>
+            <label>
+              Jegyár nem elérhető
+            </label>
+          </ng-template>
+        </div>
+      </ng-template>
+    </div>
+
+    <!-- jobb -->
+    <div class="col-md-4 text-end">
+      <div class="d-flex gap-1 justify-content-end">
+        <button *ngIf="(journey?.nativeData?.length ?? 1) === 1" class="add-btn" (click)="openAddToPlan()">
+          <span class="plus">+</span> Tervhez
+        </button>
+        <button class="info-btn" (click)="openInfo()">
+          <img src="icons/info.svg" width="18">
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Közepes és kisebb: 2 row -->
+  <div class="d-md-none">
+    <!-- első sor: bal + jobb -->
+    <div class="row align-items-center mb-2">
+      <div class="col-6 chip-row">
+        <div class="chip transport" [style.background]="getTransportBackground()">
+          <ng-container *ngFor="let m of vehicleModes">
+            <img class="chip-icon" [src]="iconForMode(m)" />
+          </ng-container>
+
+          <span *ngIf="transfers === 0" class="domain-code">
+            {{ journey.nativeData[0].JourneyName || journey.nativeData[0].LocalDomainCode }}
+          </span>
+        </div>
+
+        <div class="chip agency" *ngIf="journey.nativeData[0]?.OwnerName && transfers === 0">
+          {{ journey.nativeData[0].OwnerName }}
+        </div>
+      </div>
+
+      <div class="col-6 text-end">
+        <div class="d-flex gap-1">
+          <button *ngIf="(journey?.nativeData?.length ?? 1) === 1" class="add-btn" (click)="openAddToPlan()">
+            <span class="plus">+</span> Tervhez
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- második sor: középső -->
+    <div class="row">
+      <div class="col-6">
+        <div *ngIf="transfers > 0; else noTransfers" class="transfers-indicator" (click)="toggleSegments()">
+          Átszállás: {{ transfers }}
+          <span class="caret">{{ showSegments ? '▴' : '▾' }}</span>
+        </div>
+        <ng-template #noTransfers>
+          <div class="transfers-indicator">
+            <img src="icons/ticket.svg" class="clock" />
+            <label *ngIf="journey.nativeData[0]?.Fare > 0; else noTicket">
+              {{ journey.nativeData[0]?.Fare }} Ft
+            </label>
+            <ng-template #noTicket>
+              <label>
+                Jegyár nem elérhető
+              </label>
+            </ng-template>
+          </div>
+        </ng-template>
+      </div>
+      <div class="col-6 text-end">
+        <button class="info-btn" (click)="openInfo()">
+          <img src="icons/info.svg" width="18">
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-4">
+      <div class="block">
+        <label>Indulás</label>
+        <div class="time" [style.color]="journey.departureDelayed ? '#f87171' : 'white'">
+          {{ journey.realDeparture }}
+        </div>
+        <div class="station">
+          <img src="icons/pin.svg" class="pin" />
+          <span [innerHTML]="formatStationHtml(journey.nativeData[0]?.DepStationName || '')"></span>
+          <div class="platform d-none d-md-block" *ngIf="journey.nativeData[0]?.FromBay">
+            {{ journey.nativeData[0].FromBay }}
+          </div>
+        </div>
+        <div class="platform d-block d-md-none" *ngIf="journey.nativeData[0]?.FromBay">
+          {{ journey.nativeData[0].FromBay }}
+        </div>
+      </div>
+    </div>
+
+    <div class="col-4">
+      <div class="duration">
+        <img src="icons/clock.svg" class="clock" />
+        {{ journey.osszido ?? journey.duration ?? '—' }}
+
+        <!-- KÉSÉS KIÍRÁSA -->
+        <div class="delay-text" *ngIf="(journey.arrivalDelayMin ?? 0) > 0">
+          Késés: {{ journey.arrivalDelayMin }} perc
+        </div>
+      </div>
+    </div>
+
+    <div class="col-4">
+      <div class="block text-end">
+        <label>Érkezés</label>
+        <div class="time" [style.color]="(journey.arrivalDelayMin ?? 0) > 0 ? '#f87171' : 'white'">
+          {{ journey.arrivalDisplay || journey.realArrival || '—' }}
+        </div>
+        <div class="station-right">
+          <img src="icons/pin.svg" class="pin" />
+          <span
+            [innerHTML]="formatStationHtml(journey.nativeData[journey.nativeData.length-1]?.ArrStationName || '')"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Expanded segment list -->
+  <div *ngIf="showSegments" class="segments-list">
+    <div *ngFor="let seg of journey.nativeData; let i = index" class="segment">
+      <div class="seg-header">
+        <div class="seg-index">{{ i + 1 }}. szakasz</div>
+        <div class="seg-mode">
+          <img class="chip-icon" [src]="iconForMode(seg.TransportMode ?? seg.Mode)" />
+          <strong>{{ seg.LongName || seg.Number || seg.LocalDomainCode || '' }}</strong>
+        </div>
+      </div>
+
+      <div class="seg-body">
+        <div class="row">
+          <div class="col-4">
+            <div class="block">
+              <label>Indulás</label>
+              <div class="time">{{ format(seg.DepartureTime) }}</div>
+              <div class="station">
+                <img src="icons/pin.svg" class="pin" />
+                <span [innerHTML]="formatStationHtml(seg.DepStationName)"></span>
+              </div>
+              <div class="platform" *ngIf="seg.Platform">
+                Vágány: {{ seg.Platform }}
+              </div>
+            </div>
+          </div>
+
+          <div class="segment-meta col-4">
+            <div *ngIf="calcFareForSegment(seg) !== null; else noTicket">
+              <div class="fare-row">
+                <img src="icons/ticket.svg" class="clock" /><br>
+                <label>
+                  {{ calcFareForSegment(seg) }} Ft
+                </label>
+              </div>
+            </div>
+            <ng-template #noTicket>
+              <div class="fare-row">
+                <img src="icons/ticket.svg" class="clock" /><br>
+                <label>
+                  –
+                </label>
+              </div>
+            </ng-template>
+
+            <div class="duration-row">
+              <img src="icons/clock.svg" class="clock" />
+              <label>
+                {{ segmentDurationText(seg) }}
+              </label>
+            </div>
+          </div>
+
+
+          <div class="col-4">
+            <div class="block text-end">
+              <label>Érkezés</label>
+              <div class="time">
+                {{ format(seg.ArrivalTime) }}
+              </div>
+              <div class="station-right">
+                <img src="icons/pin.svg" class="pin" />
+                <span [innerHTML]="formatStationHtml(seg.ArrStationName)"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

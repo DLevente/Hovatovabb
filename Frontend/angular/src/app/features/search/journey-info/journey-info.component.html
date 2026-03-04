@@ -1,0 +1,70 @@
+<div class="overlay" (click)="onClose()"></div>
+
+<div class="modal-container" (click)="$event.stopPropagation()">
+  <div class="modal-header">
+    <h3>Járat részletei</h3>
+    <button class="close-btn" (click)="onClose()">✕</button>
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    <img src="img/loading.gif" width="30" />
+  </div>
+
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <!-- SZAKASZVÁLASZTÓ (csak ha több szakasz van) -->
+  <div class="seg-bar" *ngIf="!loading && segments.length > 1">
+    <button
+      class="seg-btn"
+      *ngFor="let s of segments; let i = index"
+      [class.selected]="i === selectedIndex"
+      (click)="selectSegment(i)"
+      type="button"
+    >
+      <img class="seg-icon" [src]="getSegmentIcon(s.segment)" />
+      <span class="seg-idx">#{{ i + 1 }}</span>
+      <span class="seg-line">{{ segmentLine(s.segment) }}</span>
+    </button>
+  </div>
+
+  <!-- KIVÁLASZTOTT SZAKASZ FEJLÉC -->
+  <div class="segment-head mt-3" *ngIf="!loading && selectedSeg as sel">
+    <div class="segment-head-inner">
+      <img class="chip-icon" [src]="getSegmentIcon(sel.segment)" />
+      <div class="segment-line-big">{{ segmentLine(sel.segment) }}</div>
+    </div>
+  </div>
+
+  <!-- TÁBLA -->
+  <div *ngIf="!loading && selectedSeg as sel">
+    <table class="stops-table" *ngIf="sel.stops.length > 0; else noStops">
+      <tr>
+        <th>Megálló</th>
+        <th>Érkezik</th>
+        <th>Indul</th>
+      </tr>
+
+      <tr *ngFor="let s of sel.stops">
+        <td>{{ s.megallo }}</td>
+
+        <!-- ÉRKEZÉS -->
+        <td
+          [style.color]="isExpected(s.varhato_erkezik) ? '#f87171' : 'inherit'"
+        >
+          {{ pickTime(s.varhato_erkezik, s.erkezik) || '-' }}
+        </td>
+
+        <!-- INDULÁS -->
+        <td
+          [style.color]="isExpected(s.varhato_indul) ? '#f87171' : 'inherit'"
+        >
+          {{ pickTime(s.varhato_indul, s.indul) || '-' }}
+        </td>
+      </tr>
+    </table>
+
+    <ng-template #noStops>
+      <div class="muted">Nincs adat ehhez a szakaszhoz.</div>
+    </ng-template>
+  </div>
+</div>

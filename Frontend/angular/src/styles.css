@@ -1,0 +1,64 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+    background-color: #0f172a !important;
+}
+
+.footer {
+    background-color: #020617;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0px;
+    font-family: Arial, sans-serif;
+    left: 0;
+    bottom: 0;
+    z-index: 2;
+    width: 100%;
+    gap: 5px;
+}
+
+.footer-desktop {
+    position: fixed !important;
+}
+
+.footer-mobile {
+    display: none;
+    flex-direction: column;
+}
+
+.footer a {
+    transition: 0.2s;
+}
+
+.footer a:hover {
+    opacity: 0.8;
+    transition: 0.2s;
+}
+
+.footer a img {
+    filter: invert(1);
+    margin-bottom: 5px;
+}
+
+.footer-element {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+a {
+    color: #75adff;
+    text-decoration: none !important;
+}
+
+/* footer desktop */
+@media (max-width: 767.98px) {
+    .footer-desktop {
+        display: none;
+    }
+    .footer-mobile {
+        display: inline-flex;
+    }
+}

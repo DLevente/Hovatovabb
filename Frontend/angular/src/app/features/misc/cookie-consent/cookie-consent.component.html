@@ -1,0 +1,14 @@
+<div *ngIf="visible" class="cookie-popup" role="dialog" aria-live="polite" aria-label="Süti tájékoztató">
+  <div class="left">
+    <img src="icons/cookie.svg" class="icon" alt="Cookie" />
+    <div class="text">
+      <div class="title">Sütik használata</div>
+      <div class="desc">
+        Az oldal sütiket használ a jobb felhasználói élmény érdekében.
+        További információ a <a routerLink="/jogi-informaciok">Jogi információk</a> oldalon.
+      </div>
+    </div>
+  </div>
+
+  <button class="btn-ok" (click)="accept()">OK</button>
+</div>

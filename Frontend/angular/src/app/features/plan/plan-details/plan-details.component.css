@@ -1,0 +1,308 @@
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.confirm-modal {
+  width: 360px;
+  background: #0f172a;
+  border-radius: 16px;
+  padding: 22px;
+  border: 1px solid #334155;
+  color: white;
+  text-align: center;
+}
+
+.confirm-modal h3 {
+  margin: 0 0 10px;
+  font-size: 20px;
+}
+
+.confirm-modal p {
+  color: #cbd5e1;
+  margin-bottom: 18px;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.details-page{
+  color:#e2e8f0;
+  background: #0e1c31;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.topbar{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  margin-bottom:12px;
+}
+
+.back-btn {
+  background: #2563eb;
+  border: none;
+  color: #fff;
+  padding: 10px 8px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.back-btn:hover {
+  background-color: #1e4fbb;
+  transition: 0.2s;
+}
+
+.title-wrap .title{
+  font-size:26px;
+  font-weight:800;
+  margin-top: 8px;
+}
+
+.divider{
+  height:2px;
+  background:rgba(148,163,184,0.25);
+  border-radius:999px;
+  margin:10px 0 22px;
+}
+
+.section-title{
+  font-size:22px;
+  font-weight:800;
+  margin:18px 0 14px;
+}
+
+.muted{ color:#94a3b8; }
+.error{ color:#f87171; }
+
+.empty{
+  background:#1e293b;
+  border:1px solid #334155;
+  border-radius:16px;
+  padding:24px;
+  color:#94a3b8;
+}
+
+.route-list{
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+
+.route-card{
+  border: 1px solid #334155 !important;
+  padding: 20px;
+  border-radius: 16px;
+  color: #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  transition: 0.2s;
+}
+
+.route-card:hover {
+  border: 1px solid #1e40af !important;
+  transition: 0.2s;
+}
+
+.card-header {
+    border-bottom: 1px dashed #94a3b8;
+}
+
+.card-header-inner{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-bottom:14px;
+}
+
+.left-chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  align-items:center;
+}
+
+.chip{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:6px 10px;
+  border-radius:20px;
+  font-weight:800;
+  font-size:13px;
+}
+
+.chip.idx{ 
+    background:#334155; color:#e2e8f0; 
+}
+
+.chip.transport{
+  background:#1e40af;
+  color:#ffffffae;
+}
+
+.chip.agency{
+  background:#334155;
+  color:#cbd5e1;
+}
+
+.chip.status.ok{
+  background:#16a34a;
+  color:white;
+}
+
+.chip.status.bad{
+  background:#ef4444;
+  color:white;
+}
+
+.chip-icon{
+  width:18px;
+  height:18px;
+}
+
+.actions{
+  display:flex;
+  flex-direction:row;
+  gap:8px;
+  align-items:flex-end;
+}
+
+.card-body{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:14px;
+}
+
+.block{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  min-width:220px;
+}
+
+.block.right{
+  text-align:right;
+  align-items:flex-end;
+}
+
+label{
+  color:#94a3b8;
+  font-size:14px;
+}
+
+.time{
+  font-size:28px;
+  font-weight:900;
+  color:white;
+}
+
+.station{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  color:#cbd5e1;
+  font-size:15px;
+}
+
+.pin{
+  width:14px;
+  height:14px;
+}
+
+.mid{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:28px;
+  min-width:140px;
+  color:#94a3b8;
+  font-weight:800;
+}
+
+.clock{
+  width:18px;
+  opacity:0.7;
+}
+
+.dur{
+  font-weight: normal;
+}
+
+.dur-div {
+    text-align: center;
+    font-size: 15px;
+}
+
+.fare{
+  display:flex;
+  font-size: 13px;
+  align-items:center;
+  gap:6px;
+  color:#cbd5e1;
+  font-weight:600;
+  margin-bottom: 40px;
+}
+
+.ticket{
+  width:18px;
+  opacity:0.7;
+}
+
+.platform {
+  font-size: 13px;
+  color: #cbd5e1;
+  background-color: rgb(30, 64, 175);
+  text-align: center;
+  width: 35px;
+  border-radius: 100px;
+  padding: 2px;
+}
+
+.btn-info{
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: #111b2c;
+  border: 1px solid #22324e;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.btn-info:hover{
+  filter: brightness(1.08);
+}
+
+/* mobil */
+@media (max-width: 768px){
+  .block.right{ 
+    align-items:flex-start; 
+    text-align:left; 
+  }
+
+  .idx-outer {
+    width: 100%;
+  }
+
+  .idx {
+    width: 35px;
+  }
+}

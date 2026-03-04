@@ -1,0 +1,15 @@
+<div class="search-form">
+  <input
+    type="text"
+    [placeholder]="placeholder"
+    [(ngModel)]="inputValue"
+    (input)="onInput(inputValue)"
+    class="search-input"
+  />
+
+  <ul *ngIf="suggestions.length > 0" class="suggestions">
+    <li *ngFor="let s of suggestions" (click)="pickStation(s)">
+      {{ s.lsname }}
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,98 @@
+@import url(https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css);
+
+/* Global layout */
+app-alert {
+  position: fixed;
+  z-index: 1;
+  top: 2%;
+  right: 1%;
+}
+
+a {
+  cursor: pointer;
+}
+
+.app-container {
+  min-height: 100vh;
+  background: #0f172a;
+  /* Figma sötét háttér */
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+/* HEADER */
+.header {
+  background: #020617;
+  /* nagyon sötét */
+  border-bottom: 1px solid #1e293b;
+  padding: 16px;
+}
+
+.app-title {
+  margin: 0;
+  font-size: 20px;
+}
+
+.app-subtitle {
+  margin: 0;
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+/* MAIN */
+.main {
+  max-width: 900px;
+  margin: 24px auto;
+  padding: 0 16px;
+}
+
+/* TABS */
+.tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.tab-button {
+  background: transparent;
+  border: none;
+  padding: 12px;
+  text-align: center;
+  color: #cbd5e1;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  align-items: center;
+  transition: 0.2s;
+}
+
+.tab-button:hover {
+  background: #334155;
+  transition: 0.2s;
+}
+
+.tab-button.active {
+  background: #2563eb;
+  color: white;
+}
+
+.tab-icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* CONTENT */
+.content {
+  margin-top: 16px;
+}
+
+nav {
+  background-color: #020617;
+}

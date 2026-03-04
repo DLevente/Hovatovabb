@@ -1,0 +1,78 @@
+<div class="search-container">
+  <h5>Keresés</h5>
+
+  <div class="controls">
+    <div class="row">
+      <div class="d-flex gap-3 col-12 col-md-10">
+        <app-search-form id="search-from" class="flex-grow-1" placeholder="Honnan..."
+          (selectStation)="onSelectFrom($event)"></app-search-form>
+        <button class="swap" (click)="onSwap()" title="Csere">↔</button>
+        <app-search-form id="search-to" class="flex-grow-1" placeholder="Hová..."
+          (selectStation)="onSelectTo($event)"></app-search-form>
+      </div>
+      <div class="col-12 col-md-2 mt-3 mt-md-0 search-btn-container">
+        <button class="search-btn" (click)="onSearch()">
+          <img src="icons/search.svg" width="15px">
+          <span>Keresés</span>
+        </button>
+      </div>
+      <div class="row">
+        <div class="col-12 col-md-6">
+          <label class="mt-2 allow-transfers" title="Ha bepipálod, több átszállást is engedélyez a keresés">
+            <input type="checkbox" [(ngModel)]="allowTransfers" />
+            Több átszállás engedélyezése
+          </label>
+        </div>
+        <div class="col-12 col-md-6 text-md-end text-start">
+          <label class="mt-2 allow-transfers" title="Ha bepipálod, késéseket is számít a keresés">
+            <input type="checkbox" [(ngModel)]="calcDelays" />
+            Késések számítása
+          </label>
+        </div>
+      </div>
+
+      <label class="time-label">Időpont</label>
+      <div class="datetime-row">
+        <div class="dt-input">
+          <img src="icons/calendar.svg" class="dt-icon" />
+          <input type="date" [(ngModel)]="selectedDate" [(ngModel)]="dateValue" (change)="onDateChange($event)"
+            class="dt-field" id="date" name="date" />
+        </div>
+        <div class="dt-input">
+          <img src="icons/clock.svg" class="dt-icon" />
+          <input type="time" [(ngModel)]="selectedTime" [(ngModel)]="timeValue" class="dt-field" id="time"
+            name="time" />
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="muted">
+    <img src="img/loading.gif" alt="Betöltés..." width="24px">
+  </div>
+
+  <div *ngIf="delayLoading" class="muted d-flex align-items-center gap-2">
+    <img src="img/loading.gif" alt="Betöltés..." width="24px">
+    <span>Késések számítása...</span>
+  </div>
+
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <div *ngIf="journeys.length > 0">
+    <app-search-results 
+      [journeys]="journeys" 
+      [kedvId]="kedvId" 
+      [selectedDate]="selectedDate"
+      (info)="openJourneyInfo($event)">
+    </app-search-results>
+  </div>
+
+  <div *ngIf="searched && journeys.length === 0" class="no-results">
+    Nincs találat.
+  </div>
+
+  <app-journey-info *ngIf="selectedJourneyInfo" [journey]="selectedJourneyInfo" [date]="selectedDate || defaultDate"
+    (close)="closeJourneyInfo()">
+  </app-journey-info>
+</div>
