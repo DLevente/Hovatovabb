@@ -42,12 +42,6 @@ A frontend moduláris felépítésének köszönhetően könnyen bővíthető:
 
 ---
 
-## 📌 Projekt állapota
-
-Megjelent az 1.0-ás verzió. Ez azt jelenti, hogy minden funkció, amit szerettünk volna, hogy tartalmazzon az alkalmazás elérhetővé vált.
-
----
-
 ## 👨‍💻 Készítők
 
 - Deák Levente
