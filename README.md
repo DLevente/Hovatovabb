@@ -14,13 +14,13 @@
 
 ## A projekt részei
 
-Backend: – Node.js + Express szerver, MySQL adatbázissal.
+Backend: Node.js + Express szerver, MySQL adatbázissal.
 Az indítási útmutató itt található: [Backend/README.md](Backend/README.md)
 
-Frontend – Angular webalkalmazás.
+Frontend: Angular webalkalmazás.
 Az indítási útmutató itt található: [Frontend/HistoriaWeb/README.md](Frontend/HistoriaWeb/README.md)
 
-Mobilapp – Expo (React Native) mobilalkalmazás Android és iOS platformra.
+Mobilapp: Expo (React Native) mobilalkalmazás Android és iOS platformra.
 Az indítási útmutató itt található: [Mobilapp/README.md](Mobilapp/README.md)
 
 ## Technológiák
