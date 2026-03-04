@@ -1,0 +1,40 @@
+{
+  "expo": {
+    "name": "HovaTovább Lite",
+    "slug": "hovatovabb-lite",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "hovatovabb",
+    "userInterfaceStyle": "dark",
+
+    "icon": "./assets/images/icon.png",
+
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0b1323"
+    },
+
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/icon.png",
+        "backgroundColor": "#0b1323"
+      },
+      "package": "hu.hovatovabb.lite",
+      "softwareKeyboardLayoutMode": "pan"
+    },
+
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "hu.hovatovabb.lite"
+    },
+
+    "web": {
+      "favicon": "./assets/images/icon.png"
+    },
+
+    "plugins": [
+      "expo-splash-screen"
+    ]
+  }
+}
