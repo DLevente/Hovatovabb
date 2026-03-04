@@ -18,7 +18,7 @@ Backend: Node.js + Express szerver, MySQL adatbázissal.
 Az indítási útmutató itt található: [Backend/README.md](Backend/README.md)
 
 Frontend: Angular webalkalmazás.
-Az indítási útmutató itt található: [Frontend/HistoriaWeb/README.md](Frontend/README.md)
+Az indítási útmutató itt található: [Frontend/README.md](Frontend/README.md)
 
 Mobilapp: Expo (React Native) mobilalkalmazás Android és iOS platformra.
 Az indítási útmutató itt található: [Mobilapp/README.md](Mobilapp/README.md)
