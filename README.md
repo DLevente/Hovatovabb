@@ -1,7 +1,16 @@
 # HovaTovább 
 
-<img align='right' src="img/logo.png" width="230">
+<img align='right' src="https://github.com/BenjaminStonawski/hovatovabb/raw/main/img/logo.png" width="230">
 <p><em>A <b>HovaTovább</b> egy menetrendtervező alkalmazás, amely a magyar tömegközlekedés menetrendjeit teszi könnyen és hatékonyan elérhetővé.</em></p>
+
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
 
 ## A projekt részei
 
